@@ -1,6 +1,6 @@
 {
     "entry": "./src/index.js",
-    "output": "./dist",
+    "output": "../dist",
     "dropConsole": true,
     "sourceMap": true,
     "host": "127.0.0.1",

@@ -4,13 +4,18 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const config = require('./config.json');
 
 const BUILD_PATH = path.resolve(__dirname,config.output);
 const SRC_PATH = path.join(__dirname,'..','src');
 
 let webpackConfig = {
-    entry: config.entry,
+    mode:process.env.NODE_ENV,
+    entry: {
+        index:config.entry,
+        commons:['vue','v-tap','vue-router','vue-axios','axios']
+    },
     output: {
         filename: '[name].[hash].js',
         path: BUILD_PATH
@@ -63,7 +68,11 @@ let webpackConfig = {
             template: './src/index.html',
             inject: 'body',
             chunks:'',
-            filename:'index.html'
+            filename:'index.html',
+            minify:{ 
+                removeAttributeQuotes: true,
+                collapseWhitespace:true
+            }
         }),
         new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin()
@@ -81,8 +90,18 @@ let webpackConfig = {
                 cache: true,
                 parallel: true,
                 sourceMap: config.sourceMap
-            })
-        ]
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ],
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "initial",
+                    minChunks: 2
+                }
+            }
+        }
     },
     devServer: {
         proxy: config.proxy,

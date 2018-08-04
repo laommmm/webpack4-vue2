@@ -6,30 +6,11 @@
 
 * 自动化路由管理：傻瓜式引入方式，自动读取templates及子目录的vue文件，构建路由，路由名称与文件名一致
 
-* 自动化组件引入:傻瓜式引入组件，同路由一样，读取目录改为component
+* 自动化组件引入:傻瓜式引入组件，自动读取components及子目录下所有vue文件，注册到Vue.component。命名规则：规则与react组件规则一致，组件名第一个字母为大写字母
 
-* mock数据：npm run start-mock可以读取自己模拟的json数据，再也不用担心数据格式问题，直接丢给后台让他按这个来~
+* mock数据：npm run start-mock可以读取自己模拟的json数据，再也不用担心数据格式问题，直接丢给后台让他按这个来改~
 
 * promise：封装promise+axios，不需要写回调了
-
-#### 插件安装命令
-```
-npm install babel-loader@8.0.0-beta.0 @babel/core @babel/preset-env webpack
-npm install @babel/plugin-transform-runtime --save-dev
-npm install @babel/runtime --save
-npm install @babel/plugin-proposal-object-rest-spread --save-dev
-npm install css-loader --save-dev
-npm install sass-loader --save-dev
-npm install postcss-loader@3.0.0 --save-dev
-npm install vue vue-loader --save-dev
-npm install vue-style-loader --save-dev
-npm install vue-template-compiler --save-dev
-npm install style-loader --save-dev
-npm install webpack-dev-server --save-dev
-npm install webpack-cli -D
-npm install mini-css-extract-plugin --save-dev
-npm install html-webpack-plugin --save-dev
-npm install node-sass --save-dev
 
 ```
 

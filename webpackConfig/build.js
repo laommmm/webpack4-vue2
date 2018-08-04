@@ -4,12 +4,15 @@ const rm = require('rimraf')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')
-const config = require('./config');
-const spinner = ora('Start building...')
-console.log(process.env.NODE_ENV)
-spinner.start()
+const spinner = ora('Start building...');
+const path = require('path');
+spinner.start();
+console.log("");
+console.log("============");
+console.log(process.env.NODE_ENV);
+console.log("============");
 
-rm(config.BUILD_PATH, err => {
+rm(path.resolve(__dirname,'../dist'), err => {
   if (err) throw err
   webpack(webpackConfig, (err, stats) => {
     spinner.stop()
