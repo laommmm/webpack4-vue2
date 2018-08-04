@@ -1,0 +1,14 @@
+{
+    "entry": "./src/index.js",
+    "output": "./dist",
+    "dropConsole": true,
+    "sourceMap": true,
+    "host": "127.0.0.1",
+    "port": "8080",
+    "open": true,
+    "imageLimit": 10000,
+    "proxy": [{
+        "context": [],
+        "target": ""
+    }]
+}
