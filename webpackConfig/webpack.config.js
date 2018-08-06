@@ -29,7 +29,7 @@ let webpackConfig = {
         commons:['vue','v-tap','vue-router','vue-axios','axios']
     },
     output: {
-        filename: '[name].[hash].js',
+        filename: 'js/[name].[hash].js',
         path: BUILD_PATH
     },
     module: {
@@ -47,7 +47,9 @@ let webpackConfig = {
             test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
             loader: 'url-loader',
             options: {
-              limit: config.imageLimit
+              limit: config.imageLimit,
+              name:'./images/[name].[hash].[ext]',
+              fallback:'file-loader'
             }
           },
           {

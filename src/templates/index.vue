@@ -1,10 +1,16 @@
-<style scoped>
+<style scoped lang="scss">
     .testImg{
         width: 750px;
         height: 1000px;
         background-image: url("../style/imgs/test.jpg");
         background-size: cover;
         background-repeat: no-repeat;
+    }
+
+    $red : #ff0000;
+
+    h1{
+        color: $red;
     }
 </style>
 

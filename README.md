@@ -6,13 +6,17 @@
 
 * 自动化路由管理：傻瓜式引入方式，自动读取templates及子目录的vue文件，构建路由，路由名称与文件名一致
 
-* 自动化组件引入:傻瓜式引入组件，自动读取components及子目录下所有vue文件，注册到Vue.component。命名规则：规则与react组件规则一致，组件名第一个字母为大写字母
+* 自动化组件引入: 傻瓜式引入组件，自动读取components及子目录下所有vue文件，注册到Vue.component。命名规则：规则与react组件规则一致，组件名第一个字母为大写字母
 
 * mock数据：npm run start-mock可以读取自己模拟的json数据，再也不用担心数据格式问题，直接丢给后台让他按这个来改~
 
-* promise：封装promise+axios，不需要写回调了
+* px2vw: rem和vw二选一，选了vw，先试试各方面的兼容对比，暂时不知谁更好.
 
-```
+### css书写
+
+由于使用了px2vw插件，px会自动转换为vw，书写时注意规范。
+配置在.postcssrc，默认750*1334转换。
+即750px => 100vw （一屏宽度）
 
 #### config.json
 
