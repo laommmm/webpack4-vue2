@@ -1,0 +1,7 @@
+{
+    "code":"0",
+    "message":"success",
+    "data":{
+        "msg":"This is json mock!"
+    }
+}

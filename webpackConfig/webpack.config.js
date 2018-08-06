@@ -5,13 +5,25 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const config = require('./config.json');
 
 const BUILD_PATH = path.resolve(__dirname,config.output);
+const MOCK_PATH = path.resolve(__dirname,config.mockpath);
 const SRC_PATH = path.join(__dirname,'..','src');
 
+const isDev = process.env.NODE_ENV !== 'production';
+let mode = 'none';
+if(process.env.NODE_ENV === 'production'){
+    mode = 'production';
+}else if(process.env.NODE_ENV === 'development'){
+    mode = 'development';
+}else{
+    mode = 'none';
+}
+
 let webpackConfig = {
-    mode:process.env.NODE_ENV,
+    mode:mode,
     entry: {
         index:config.entry,
         commons:['vue','v-tap','vue-router','vue-axios','axios']
@@ -25,10 +37,10 @@ let webpackConfig = {
           {
             test: /\.(sa|sc|c)ss$/,
             use: [
-              process.env.NODE_ENV !== 'production' ? {loader:'style-loader',options:{sourceMap:config.sourceMap}} : {loader:MiniCssExtractPlugin.loader,options:{sourceMap:config.sourceMap}},
-              {loader:'css-loader',options:{sourceMap:config.sourceMap}},
-              {loader:'postcss-loader',options:{sourceMap:config.sourceMap,plugins: [require("autoprefixer")]}},
-              {loader:'sass-loader',options:{sourceMap:config.sourceMap}}
+              isDev ? {loader:'style-loader',options:{sourceMap:config.sourceMap}} : MiniCssExtractPlugin.loader,
+              'css-loader',
+              'postcss-loader',
+              'sass-loader'
             ]
           },
           {
@@ -54,7 +66,7 @@ let webpackConfig = {
           },
           {
             test:/\.vue$/,
-            use:'vue-loader'
+            use:['vue-loader']
           }
         ]
     },
@@ -120,6 +132,15 @@ let webpackConfig = {
             '@': SRC_PATH
           }
     }
+}
+
+if(process.env.NODE_ENV === 'mock'){
+    webpackConfig.plugins.push(
+        new CopyWebpackPlugin([{
+            from: MOCK_PATH,
+            to: path.resolve(BUILD_PATH,'mock')
+        }])
+    )
 }
 
 module.exports = webpackConfig
