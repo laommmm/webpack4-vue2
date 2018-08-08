@@ -17,6 +17,10 @@ Vue.use(VueAxios,axios);
 import vTap from 'v-tap';
 Vue.use(vTap);
 
+// 注册Vue公共方法
+import utils from '@/libs/utils';
+Vue.use(utils);
+
 
 import Index from '@/index.vue';
 
