@@ -24,6 +24,7 @@
     "@babel/runtime": "^7.0.0-beta.55",
     "autoprefixer": "^9.0.2",
     "babel-loader": "^8.0.0-beta.0",
+    "babel-polyfill": "^6.26.0",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",

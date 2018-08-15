@@ -2,6 +2,9 @@ import Vue from 'vue';
 // 公共CSS
 import '@/style/style';
 
+// 添加IE9兼容
+import 'babel-polyfill';
+
 // 公共组件引入
 import '@/components/components';
 
