@@ -31,3 +31,24 @@ webpack的常用替换配置参数:
 * open:是否在run start 之后打开浏览器
 * imageLimit:图片压缩限制(单位:字节)
 * proxy:跨域代理配置，context匹配的跨域前缀，target:目标地址
+
+###### 添加测试环境对应接口打包区分压缩与非压缩模式
+
+modify by baishan
+考虑到有些时候测试环境与生产环境的接口地址不在同一个域，而测试环境又需要debug与性能测试。
+故而添加2种命令
+
+```
+// 接口统一书写在@/libs/api.js
+
+// 测试环境打包，非压缩，方便调试
+npm run build-dev
+// 测试环境打包，压缩，方便性能测试
+npm run build-com
+// 测试环境mock数据启动server,接口地址对应mock
+npm run start-mock
+// 测试环境正常启动，接口地址对应dev
+npm run start
+// 生产环境打包，接口地址对应prd
+npm run build
+```

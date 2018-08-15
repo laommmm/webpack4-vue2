@@ -11,7 +11,7 @@ import router from '@/router/index';
 // ajax
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-Vue.use(VueAxios,axios);
+Vue.use(VueAxios, axios);
 
 // v-tap 解决IOS点击事件300ms延迟问题
 import vTap from 'v-tap';
@@ -26,5 +26,5 @@ import Index from '@/index.vue';
 
 const app = new Vue({
     router,
-    render: h=>h(Index)
+    render: h => h(Index)
 }).$mount("#app");

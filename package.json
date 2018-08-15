@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode=development --config webpackConfig/webpack.config.js",
+    "build": "cross-env NODE_ENV=production node webpackConfig/build.js",
     "start-mock": "cross-env NODE_ENV=mock webpack-dev-server --config webpackConfig/webpack.config.js",
-    "build": "cross-env NODE_ENV=production node webpackConfig/build.js"
+    "build-dev": "cross-env NODE_ENV=development node webpackConfig/build.js",
+    "build-com": "cross-env NODE_ENV=com node webpackConfig/build.js"
   },
   "keywords": [
     "vue",

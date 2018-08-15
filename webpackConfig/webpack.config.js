@@ -13,13 +13,18 @@ const MOCK_PATH = path.resolve(__dirname,config.mockpath);
 const SRC_PATH = path.join(__dirname,'..','src');
 
 const isDev = process.env.NODE_ENV !== 'production';
-let mode = 'none';
+
+let mode = '';
+let ug = false;
 if(process.env.NODE_ENV === 'production'){
     mode = 'production';
+    ug = true;
 }else if(process.env.NODE_ENV === 'development'){
     mode = 'development';
+    ug = false;
 }else{
     mode = 'none';
+    ug = true;
 }
 
 let webpackConfig = {
@@ -92,6 +97,7 @@ let webpackConfig = {
         new webpack.HotModuleReplacementPlugin()
     ],
     optimization:{
+        minimize: ug,
         minimizer: [
             new UglifyJsPlugin({
                 uglifyOptions:{
