@@ -1,9 +1,11 @@
 // vue公共函数
 export default {
     install(Vue, options) {
+        // 公共返回方法
         Vue.prototype.goBack = () => {
             history.back();
         }
+        // 转JSON方法
         Vue.prototype.parseJSON = (data) => {
             let res;
             try {

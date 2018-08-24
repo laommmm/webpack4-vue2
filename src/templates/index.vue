@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import URL from '@/libs/api';
+    import URL from '@/common/api';
     export default {
         data(){
             return {

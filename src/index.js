@@ -1,6 +1,6 @@
-import Vue from 'vue';
 // 公共CSS
 import '@/style/style';
+import Vue from 'vue';
 
 // 添加IE9兼容
 import 'babel-polyfill';
@@ -21,9 +21,11 @@ import vTap from 'v-tap';
 Vue.use(vTap);
 
 // 注册Vue公共方法
-import utils from '@/libs/utils';
+import utils from '@/common/utils';
 Vue.use(utils);
 
+// 引入libs下全部组件
+import '@/common/importCommonLibs';
 
 import Index from '@/index.vue';
 
