@@ -4,7 +4,7 @@
   "description": "build a project with webpack4",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --config webpackConfig/webpack.config.js",
+    "start": "webpack-dev-server --mode=development --config webpackConfig/webpack.config.js --progress",
     "build": "cross-env NODE_ENV=production node webpackConfig/build.js",
     "start-mock": "cross-env NODE_ENV=mock webpack-dev-server --config webpackConfig/webpack.config.js",
     "build-dev": "cross-env NODE_ENV=development node webpackConfig/build.js",
@@ -45,6 +45,7 @@
     "postcss-import": "^12.0.0",
     "postcss-loader": "^2.1.6",
     "postcss-px-to-viewport": "0.0.3",
+    "postcss-sorting": "^4.0.0",
     "postcss-url": "^7.3.2",
     "postcss-viewport-units": "^0.1.4",
     "postcss-write-svg": "^3.0.1",
@@ -61,6 +62,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "npm-install-webpack-plugin": "^4.0.5",
     "v-tap": "^3.0.3",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.2",
