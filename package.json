@@ -27,7 +27,6 @@
     "babel-plugin-syntax-dynamic-lazy-import": "^1.0.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
-    "babel-polyfill": "^6.26.0",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
@@ -63,7 +62,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
-    "npm-install-webpack-plugin": "^4.0.5",
     "v-tap": "^3.0.3",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.2",

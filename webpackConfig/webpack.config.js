@@ -30,7 +30,7 @@ if(process.env.NODE_ENV === 'production'){
 let webpackConfig = {
     mode:mode,
     entry: {
-        index:['babel-polyfill',config.entry],
+        index:config.entry,
         commons:['vue','v-tap','vue-router','vue-axios','axios']
     },
     output: {
