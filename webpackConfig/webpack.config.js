@@ -5,99 +5,103 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = require('./config.json');
 
-const BUILD_PATH = path.resolve(__dirname,config.output);
-const MOCK_PATH = path.resolve(__dirname,config.mockpath);
-const SRC_PATH = path.join(__dirname,'..','src');
-
-const isDev = process.env.NODE_ENV !== 'production';
+const BUILD_PATH = path.resolve(__dirname, config.output);
+const MOCK_PATH = path.resolve(__dirname, config.mockpath);
+const SRC_PATH = path.join(__dirname, '..', 'src');
 
 let mode = '';
 let ug = false;
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
     mode = 'production';
     ug = true;
-}else if(process.env.NODE_ENV === 'development'){
+} else if (process.env.NODE_ENV === 'development') {
     mode = 'development';
     ug = false;
-}else{
+} else {
     mode = 'none';
     ug = true;
 }
 
 let webpackConfig = {
-    mode:mode,
+    mode: mode,
     entry: {
-        index:config.entry,
-        commons:['vue','v-tap','vue-router','vue-axios','axios']
+        index: config.entry,
+        commons: ['vue', 'v-tap', 'vue-router']
     },
     output: {
-        filename: 'js/[name].[hash].js',
-        path: BUILD_PATH
+        filename: 'js/[name].bundle.js',
+        path: BUILD_PATH,
+        chunkFilename: "chunks/[name].[chunkhash:8].js"
     },
     module: {
         rules: [
-          {
-            test: /\.(sa|sc|c)ss$/,
-            use: [
-              isDev ? {loader:'style-loader',options:{sourceMap:config.sourceMap}} : MiniCssExtractPlugin.loader,
-              'css-loader',
-              'postcss-loader',
-              'sass-loader'
-            ]
-          },
-          {
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-            loader: 'url-loader',
-            options: {
-              limit: config.imageLimit,
-              name:'./images/[name].[hash].[ext]',
-              fallback:'file-loader'
+            {
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader"
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: config.imageLimit,
+                    name: './css/images/[name].[hash:8].[ext]',
+                    fallback: 'file-loader',
+                    publicPath: '../'
+                }
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+            {
+                test: /\.vue$/,
+                use: ['vue-loader']
             }
-          },
-          {
-            test: /\.(js|jsx)$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader'
-            }
-          },
-          {
-            test:/\.vue$/,
-            use:['vue-loader']
-          }
         ]
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "[name].[hash].css",
-            chunkFilename: "[id].css"
+            filename: "css/[name].[hash].css",
+            chunkFilename: "css/[id].[hash].css"
         }),
         new HtmlwebpackPlugin({
-            title: 'webpack-test',
+            title: '洞庭湖通识课',
             template: './src/index.html',
             inject: 'body',
-            chunks:'',
-            filename:'index.html',
-            minify:{ 
+            favicon: './favicon.ico',
+            chunks: '',
+            filename: 'index.html',
+            minify: {
                 removeAttributeQuotes: true,
-                collapseWhitespace:true
+                collapseWhitespace: true
             }
         }),
         new VueLoaderPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new CopyWebpackPlugin([{
+            from: path.resolve(SRC_PATH, 'webuploader'),
+            to: path.resolve(BUILD_PATH, 'webuploader')
+        }])
     ],
-    optimization:{
+    optimization: {
         minimize: ug,
         minimizer: [
             new UglifyJsPlugin({
-                uglifyOptions:{
-                    compress:{
+                uglifyOptions: {
+                    compress: {
                         warnings: false,
-                        drop_debugger:true,
-                        drop_console:config.dropConsole
+                        drop_debugger: true,
+                        drop_console: config.dropConsole
                     }
                 },
                 cache: true,
@@ -107,39 +111,38 @@ let webpackConfig = {
             new OptimizeCSSAssetsPlugin({})
         ],
         splitChunks: {
-            cacheGroups: {
-                commons: {
-                    name: "commons",
-                    chunks: "initial",
-                    minChunks: 2
-                }
-            }
+            chunks: "all",
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true
         }
     },
     devServer: {
         proxy: config.proxy,
-        contentBase:BUILD_PATH,
+        contentBase: BUILD_PATH,
         compress: true,
         hot: true,
         hotOnly: true,
-        https: false, 
+        https: false,
         host: config.host,
         port: config.port,
         open: config.open
     },
     resolve: {  //导入的时候不用写拓展名
-        extensions: [' ', '.js', '.json', '.vue', '.scss','.sass', '.css','.json'],
+        extensions: [' ', '.js', '.json', '.vue', '.scss', '.sass', '.css', '.json'],
         alias: {
             '@': SRC_PATH
-          }
+        }
     }
-}
+};
 
-if(process.env.NODE_ENV === 'mock'){
+if (process.env.NODE_ENV === 'mock') {
     webpackConfig.plugins.push(
         new CopyWebpackPlugin([{
             from: MOCK_PATH,
-            to: path.resolve(BUILD_PATH,'mock')
+            to: path.resolve(BUILD_PATH, 'mock')
         }])
     )
 }

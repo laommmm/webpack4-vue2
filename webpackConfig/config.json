@@ -1,15 +1,43 @@
 {
-    "entry": "./src/index.js",
-    "output": "../dist",
-    "mockpath":"../src/mock",
-    "dropConsole": true,
-    "sourceMap": true,
-    "host": "127.0.0.1",
-    "port": "8080",
-    "open": true,
-    "imageLimit": 10000,
-    "proxy": [{
-        "context": [],
-        "target": ""
-    }]
+  "entry": "./src/index.js",
+  "output": "../dist",
+  "mockpath": "../src/mock",
+  "dropConsole": true,
+  "sourceMap": true,
+  "host": "0.0.0.0",
+  "port": "8080",
+  "open": true,
+  "imageLimit": 4196,
+  "proxy": {
+    "/api-user/*": {
+      "target": "http://dth.my0755.net/",
+      "changeOrigin": true,
+      "secure": false
+    },
+    "/api-main/*": {
+      "target": "http://dth.my0755.net/",
+      "changeOrigin": true,
+      "secure": false
+    },
+    "/api-course/*": {
+      "target": "http://dth.my0755.net/",
+      "changeOrigin": true,
+      "secure": false
+    },
+    "/api-user-card/*": {
+      "target": "http://dth.my0755.net/",
+      "changeOrigin": true,
+      "secure": false
+    },
+    "/api-user-main/*": {
+      "target": "http://dth.my0755.net/",
+      "changeOrigin": true,
+      "secure": false
+    },
+    "/api-upload/*": {
+      "target": "http://dth.my0755.net/",
+      "changeOrigin": true,
+      "secure": false
+    }
+  }
 }

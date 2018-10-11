@@ -3,7 +3,8 @@
   "plugins": [
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-transform-runtime",
-    "transform-vue-jsx", 
+    "@babel/plugin-syntax-dynamic-import",
+    "transform-vue-jsx",
     "syntax-dynamic-lazy-import"
   ]
 }
